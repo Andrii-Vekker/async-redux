@@ -1,9 +1,11 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchBooks } from "../redux/booksOperations";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBooks, addBookToList, removeBookToList } from "../redux/booksOperations";
 
 
 export default function Books() {
+  const books = useSelector(state => state.books.items)
+
     const dispatch = useDispatch()
     useEffect(() => {
 
@@ -13,6 +15,14 @@ export default function Books() {
     
 
   return (
-    <div>Books</div>
+    <div>Books
+      <ul>
+        {books.map(book => {
+        
+          return <li key={book.id}>{book.name}  :  {book.phone}
+            <span style={{ color: "red", cursor: "pointer" }}>&times;</span></li>
+})}
+      </ul>
+    </div>
   )
 }
